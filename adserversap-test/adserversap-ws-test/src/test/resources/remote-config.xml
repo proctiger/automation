@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+     <backup-location compressed="true" max-log-file-size-in-mb="10">/export/adserversap-ws-test/config/remote</backup-location>
+</configuration>

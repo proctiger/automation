@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Self-test</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="author" content="DiegoVitorJR" />
+		<link rel="shortcut icon" href="http://h.imguol.com/favicon.ico" />
+		<style type="text/css">
+			*{
+				font-family: Arial, sans;
+			}
+			
+			.steps{
+				display: none;
+			}
+			
+			.feature{
+				margin: 20px 0 0;
+				max-width: 990px;
+				overflow: hidden;
+			}
+			
+			.passed{
+				background: #DFD;
+				border-color: #BFB;
+			}
+			
+			.skipped{
+				background: #FFF;
+				border-color: #EEE;
+				color: #999;
+				font-style: italic;
+			}
+			
+			.failed{
+				background: #FEE;
+				border-color: #FCC;
+			}
+			
+			p, pre{
+				border-left: 5px solid #FFF;
+				font-size: 13px;
+				line-height:23px;
+				margin:2px 0 0 10px;
+				padding:0 0 0 10px;
+			}
+			
+			h3{
+				font-size: 14px;
+				line-height:20px;
+				margin:4px 0 0;
+				padding:0 0 0 5px;
+			}
+			
+			label{
+				color: #666;
+				cursor: pointer;
+				float: right;
+				font-size: 11px;
+				font-weight: normal;
+				margin-right: 10px;
+			}
+			
+			h2{
+				background: #EEE;
+				border-left: 20px solid #DDD;
+				font-size: 16px;
+				line-height:24px;
+				margin:0;
+				padding:0 0 0 10px;
+			}
+			
+			ul{
+				display: block;
+				margin: 0;
+				overflow: hidden;
+				padding: 0;
+				max-width: 990px;
+			}
+			
+			li{
+				display: block;
+				float: left;
+				font-size: 14px;
+				font-weight: bold;
+				line-height:24px;
+				list-style: none;
+				margin: 0 5px 0 0;
+				overflow: hidden;
+				padding: 0 0 0 5px;
+			}
+			
+			li span{
+				background: #EEE;
+				border-left: 5px solid #DDD;
+				display: block;
+				float: right;
+				font-weight: normal;
+				line-height:24px;
+				overflow: hidden;
+				padding: 0 5px;
+			}
+			
+			#numTotal{
+				background: #DDD;
+			}
+			
+			#numTotal span{
+				background: #EEE;
+				border-color: #DDD;
+			}
+			
+			#numSuccess{
+				background: #BFB;
+			}
+			
+			#numSuccess span{
+				background: #DFD;
+				border-color: #BFB;
+			}
+			
+			#numError{
+				background: #FCC;
+			}
+			
+			#numError span{
+				background: #FEE;
+				border-color: #FCC;
+			}
+		</style>
+	</head>
+	<body>
+	<ul id="result">
+				<li id="numTotal"></li>
+				<li id="numSuccess"></li>
+				<li id="numError"></li>
+			</ul>
+		<div id="features"></div>
+		<script type="text/javascript">
+			var CUCUMBER_REPORT = window.CUCUMBER_REPORT || {};
+			CUCUMBER_REPORT.NUM_TOTAL_TESTS = 0;
+			CUCUMBER_REPORT.NUM_FAILED_TESTS = 0;
+			
+			CUCUMBER_REPORT.htmlEscape = function(str){
+			    return String(str)
+			            .replace(/</g, '&lt;')
+			            .replace(/>/g, '&gt;');
+			}
+			
+			CUCUMBER_REPORT.handleService = function() {
+				if (this.readyState == 4) {
+					CUCUMBER_REPORT.renderHtml(this.responseText);
+				}
+			};
+	
+			CUCUMBER_REPORT.renderHtml = function(data) {
+				var json, html = '';
+	
+				if (!data || data == ""){
+					return;
+				}
+				
+				if (navigator.userAgent.match(/IE 11|MSIE 10|MSIE 9|MSIE 8|MSIE 7/)) {
+					json = (eval('(' + data + ')'));
+				} else {
+					json = JSON.parse(data);
+				}
+				
+				if(json.length && json.length > 0){
+					for(var i = 0;i < json.length; i++){
+						html += CUCUMBER_REPORT.getHtmlFeature(json[i]);
+					}
+				}
+				
+				document.getElementById('features').innerHTML = html;
+			}
+			
+			CUCUMBER_REPORT.getHtmlFeature = function(feature){
+				var html = '<div class="feature" id="' + feature.id + '">';
+				html += '<h2 onclick="CUCUMBER_REPORT.changeAllSteps(this)">Funcionalidade: ' + feature.name +  '<label>Expandir todos | Ocultar todos</label></h2>';
+				html += '<div class="scnearios">';
+				
+				if(feature.elements && feature.elements.length && feature.elements.length > 0){
+					for(var i = 0;i < feature.elements.length;i++){
+						html +=  CUCUMBER_REPORT.getHtmlScenario(feature.elements[i]);
+						CUCUMBER_REPORT.NUM_TOTAL_TESTS++;
+					}
+				}
+				
+				html += '</div></div>';
+				return html;
+			}
+			
+			CUCUMBER_REPORT.getHtmlScenario = function(scenario) {
+				var html = '<div class="scenario" id="' + scenario.id + '">';
+				html += '<h3 onclick="CUCUMBER_REPORT.changeSteps(this)">' + CUCUMBER_REPORT.htmlEscape(scenario.name) + '<label>Expandir | Ocultar</label></h3>';
+				html += '<div class="steps" style="display:none;">';
+				
+				if(scenario.steps && scenario.steps.length && scenario.steps.length > 0){
+					for(var i = 0;i < scenario.steps.length;i++){
+						html +=  CUCUMBER_REPORT.getHtmlStep(scenario.steps[i]);
+					}
+				}
+				
+				html += '</div></div>';
+				return html;
+			}
+			
+			CUCUMBER_REPORT.getHtmlStep = function(step) {
+				var status = "passed";
+				if(step.result && step.result.status){
+					status = step.result.status;
+				}
+				
+				var skippedText = status == 'skipped' ? '[SKIPPED] ' : '' ;
+				
+				var html = '<div class="step">';
+				html += '<p class="' + status + '">' + skippedText + CUCUMBER_REPORT.htmlEscape(step.keyword + step.name) + '</p>';
+				if(status == 'failed'){
+					CUCUMBER_REPORT.NUM_FAILED_TESTS++;
+					html += '<pre class="failed">' + step.result.error_message + '</pre>';
+				}
+				html += '</div>';
+				return html;
+			}
+	
+			CUCUMBER_REPORT.getXMLHttpRequest = function() {
+				if (window.XMLHttpRequest) {
+					return new window.XMLHttpRequest;
+				} else {
+					try {
+						return new ActiveXObject("MSXML2.XMLHTTP.3.0");
+					} catch (e) {
+						return null;
+					}
+				}
+			}
+	
+			CUCUMBER_REPORT.callServices = function() {
+	
+				CUCUMBER_REPORT.xmlHttp = CUCUMBER_REPORT.getXMLHttpRequest();
+	
+				if (CUCUMBER_REPORT.xmlHttp != null) {
+					CUCUMBER_REPORT.xmlHttp.open('GET', 'self-test.json', true);
+					CUCUMBER_REPORT.xmlHttp.onreadystatechange = CUCUMBER_REPORT.handleService;
+					CUCUMBER_REPORT.xmlHttp.setRequestHeader('Content-Type', 'application/json');
+					CUCUMBER_REPORT.xmlHttp.send();
+				} else {
+					console.log('WARN: AJAX (XMLHTTP) não suportado');
+				}
+			};
+	
+			CUCUMBER_REPORT.callServices();
+			
+			CUCUMBER_REPORT.markScenarios = function(){
+				if(document.readyState && document.readyState == 'complete') {
+					var scenarios = document.getElementsByClassName('scenario');
+					for(var i = 0;i < scenarios.length; i++){
+						var scenario = scenarios[i];
+						var title = scenario.getElementsByTagName('h3')[0];
+						var markup = scenario.innerHTML;
+						if(markup.match(/class=\"failed\"/)){
+							title.style.background = '#FCC';
+							scenario.getElementsByClassName('steps')[0].style.display = 'block';
+							continue;
+						}
+						title.style.background = '#BFB';
+						document.getElementById('numTotal').innerHTML = 'Testes executados<span>' + CUCUMBER_REPORT.NUM_TOTAL_TESTS + '</span>';
+						document.getElementById('numSuccess').innerHTML = 'Com sucesso<span>' + (CUCUMBER_REPORT.NUM_TOTAL_TESTS - CUCUMBER_REPORT.NUM_FAILED_TESTS) + '</span>';
+						document.getElementById('numError').innerHTML = 'Com erro<span>' + CUCUMBER_REPORT.NUM_FAILED_TESTS + '</span>';
+					}
+				} else {
+					setTimeout(CUCUMBER_REPORT.markScenarios, 100);
+				}
+			}
+			
+			CUCUMBER_REPORT.markScenarios();
+			
+			CUCUMBER_REPORT.changeSteps = function(elem){
+				var steps = elem.parentNode.getElementsByClassName('steps')[0];
+				if(steps.style && steps.style.display && steps.style.display == 'block'){
+					steps.style.display = 'none';
+				} else {
+					steps.style.display = 'block';
+				}
+			}
+			
+			CUCUMBER_REPORT.changeAllSteps = function(elem){
+				var steps = elem.parentNode.getElementsByClassName('steps');
+				var display = steps[0].style && steps[0].style.display && steps[0].style.display == 'block' ? 'none' : 'block';
+				for(var i = 0;i < steps.length;i++){
+					steps[i].style.display = display;
+				}
+			}
+		</script>
+	</body>
+</html>

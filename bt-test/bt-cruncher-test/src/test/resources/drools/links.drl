@@ -1,0 +1,88 @@
+package uol.bt.links;
+
+import java.util.*;
+import java.util.Map.Entry;
+import java.net.*;
+import uol.bt.cruncher.behavior.*;
+import org.apache.commons.lang.*;
+import uol.bt.commons.infra.metrics.*;
+import org.apache.commons.collections.*;
+
+global String partner;
+global String counterName;
+global String trackURL;
+global Object parent;
+global MetricsRepository metrics;
+
+global String sigaURL;
+global String affiliatedURL; 
+
+rule "Veiculos"    
+    when behavior : Behavior ( behavior.traitCountOf ( "201", 10 ) >= 3 )     
+    then behavior.addSegment(partner, "201");
+end   
+
+rule "Turismo"    
+    when behavior : Behavior ( behavior.traitCountOf ( "202", 14 ) >= 3 )     
+    then behavior.addSegment(partner, "202");
+end   
+
+rule "Moda"    
+    when behavior : Behavior ( behavior.traitCountOf ( "214", 5 ) >= 2 )     
+    then behavior.addSegment(partner, "214");
+end   
+
+rule "Beleza"    
+    when behavior : Behavior ( behavior.traitCountOf ( "215", 5 ) >= 2 )     
+    then behavior.addSegment(partner, "215");
+end   
+
+rule "Educacao"    
+    when behavior : Behavior ( behavior.traitCountOf ( "213", 14 ) >= 5 )     
+    then behavior.addSegment(partner, "213");
+end   
+
+rule "Imoveis"    
+    when behavior : Behavior ( behavior.traitCountOf ( "205", 30 ) >= 3 )     
+    then behavior.addSegment(partner, "205");
+end   
+
+rule "Saude"    
+    when behavior : Behavior ( behavior.traitCountOf ( "206", 20 ) >= 3 )     
+    then behavior.addSegment(partner, "206");
+end   
+
+rule "Celulares e telefonia"    
+    when behavior : Behavior ( behavior.traitCountOf ( "207", 10 ) >= 1 )     
+    then behavior.addSegment(partner, "207");
+end   
+
+rule "Economia"    
+    when behavior : Behavior ( behavior.traitCountOf ( "212", 10 ) >= 2 )     
+    then behavior.addSegment(partner, "212");
+end   
+
+rule "Tecnologia"    
+    when behavior : Behavior ( behavior.traitCountOf ( "209", 10 ) >= 1 )     
+    then behavior.addSegment(partner, "209");
+end   
+
+rule "Eletronicos"    
+    when behavior : Behavior ( behavior.traitCountOf ( "216", 10 ) >= 3 )     
+    then behavior.addSegment(partner, "216");
+end   
+
+rule "Empregos"    
+    when behavior : Behavior ( behavior.traitCountOf ( "217", 10 ) >= 3 )     
+    then behavior.addSegment(partner, "217");
+end   
+
+rule "Entretenimento"    
+    when behavior : Behavior ( behavior.traitCountOf ( "218", 14 ) >= 5 )     
+    then behavior.addSegment(partner, "218");
+end   
+
+rule "Esportes"    
+    when behavior : Behavior ( behavior.traitCountOf ( "219", 6 ) >= 3 )     
+    then behavior.addSegment(partner, "219");
+end   

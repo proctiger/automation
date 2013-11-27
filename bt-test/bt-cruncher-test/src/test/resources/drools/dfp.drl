@@ -1,0 +1,195 @@
+package uol.bt.dfp;  
+
+import java.util.*; 
+import java.util.Map.Entry; 
+import java.net.*; 
+import uol.bt.cruncher.behavior.*;
+import org.apache.commons.lang.*; 
+import uol.bt.commons.infra.metrics.*; 
+import org.apache.commons.collections.*;  
+
+global String partner; 
+global String counterName; 
+global String trackURL; 
+global Object parent; 
+global MetricsRepository metrics;  
+
+rule "Automoveis e motos"      
+    when behavior : Behavior ( traitCountOf ( "201", 10 ) >= 3 )      
+    then behavior.addSegment(partner, "201");  
+end   
+
+rule "Turismo e viagens"      
+    when behavior : Behavior ( traitCountOf ( "202", 14 ) >= 6 )      
+    then behavior.addSegment(partner, "202");  
+end   
+
+rule "Mulher, moda e beleza"      
+    when behavior : Behavior ( traitCountOf ( "203", 5 ) >= 2 )      
+    then behavior.addSegment(partner, "203");  
+end   
+
+rule "Vestibulares"      
+    when behavior : Behavior ( traitCountOf ( "204", 14 ) >= 5 )      
+    then behavior.addSegment(partner, "204");  
+end   
+
+rule "Imoveis"      
+    when behavior : Behavior ( traitCountOf ( "205", 30 ) >= 5 )      
+    then behavior.addSegment(partner, "205");  
+end   
+
+rule "Saude, dieta e boa forma"      
+    when behavior : Behavior ( traitCountOf ( "206", 10 ) >= 3 )      
+    then behavior.addSegment(partner, "206");  
+end   
+
+rule "Smartphone"      
+    when behavior : Behavior ( traitCountOf ( "207", 10 ) >= 2 )      
+    then behavior.addSegment(partner, "207");  
+end   
+
+rule "Smartphone - intencao de compra"      
+    when behavior : Behavior ( traitCountOf ( "210", 10 ) >= 1 )      
+    then behavior.addSegment(partner, "210");  
+end   
+
+rule "Servicos a PJ"      
+    when behavior : Behavior ( traitCountOf ( "208", 10 ) >= 2 )      
+    then behavior.addSegment(partner, "208");  
+end   
+
+rule "Informatica"      
+    when behavior : Behavior ( traitCountOf ( "209", 10 ) >= 3 )      
+    then behavior.addSegment(partner, "209");  
+end   
+
+rule "Informatica - intencao de compra"      
+    when behavior : Behavior ( traitCountOf ( "211", 8 ) >= 1 )      
+    then behavior.addSegment(partner, "211");  
+end   
+
+rule "Netshoes"      
+    when behavior : Behavior ( traitCountOf ( "501", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "501");  
+end   
+
+rule "Sephora"      
+    when behavior : Behavior ( traitCountOf ( "502", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "502");  
+end   
+
+rule "Dafiti"      
+    when behavior : Behavior ( traitCountOf ( "503", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "503");  
+end   
+
+rule "DELL"      
+    when behavior : Behavior ( traitCountOf ( "504", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "504");  
+end   
+
+rule "Netflix"      
+    when behavior : Behavior ( traitCountOf ( "505", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "505");  
+end   
+
+rule "Cyrela"      
+    when behavior : Behavior ( traitCountOf ( "506", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "506");  
+end     
+
+rule "Fastshop"      
+    when behavior : Behavior ( traitCountOf ( "507", 1 ) >= 1 )      
+    then behavior.addSegment(partner, "507");  
+end   
+
+rule "Sticky - Automoveis e motos"      
+    when behavior : Behavior ( containsStickySegment ( partner, "201", 30 ) )      
+    then behavior.addStickySegment(partner, "201");  
+end   
+
+rule "Sticky - Turismo e viagens"      
+    when behavior : Behavior ( containsStickySegment ( partner, "202", 30 ) )      
+    then behavior.addStickySegment(partner, "202");  
+end   
+
+rule "Sticky - Mulher, moda e beleza"      
+    when behavior : Behavior ( containsStickySegment ( partner, "203", 30 ) )      
+    then behavior.addStickySegment(partner, "203");  
+end   
+
+rule "Sticky - Vestibulares"      
+    when behavior : Behavior ( containsStickySegment ( partner, "204", 30 ) )      
+    then behavior.addStickySegment(partner, "204");  
+end   
+
+rule "Sticky - Imoveis"      
+    when behavior : Behavior ( containsStickySegment ( partner, "205", 30 ) )      
+    then behavior.addStickySegment(partner, "205");  
+end   
+
+rule "Sticky - Saude, dieta e boa forma"      
+    when behavior : Behavior ( containsStickySegment ( partner, "206", 30 ) )      
+    then behavior.addStickySegment(partner, "206");  
+end   
+
+rule "Sticky - Smartphone"      
+    when behavior : Behavior ( containsStickySegment ( partner, "207", 30 ) )      
+    then behavior.addStickySegment(partner, "207");  
+end   
+
+rule "Sticky - Smartphone - intencao de compra"      
+    when behavior : Behavior ( containsStickySegment ( partner, "210", 30 ) )      
+    then behavior.addStickySegment(partner, "210");  
+end   
+
+rule "Sticky - Servicos a PJ"      
+    when behavior : Behavior ( containsStickySegment ( partner, "208", 30 ) )      
+    then behavior.addStickySegment(partner, "208");  
+end   
+
+rule "Sticky - Informatica"      
+    when behavior : Behavior ( containsStickySegment ( partner, "209", 30 ) )      
+    then behavior.addStickySegment(partner, "209");  
+end   
+
+rule "Sticky - Informatica - intencao de compra"      
+    when behavior : Behavior ( containsStickySegment ( partner, "211", 30 ) )      
+    then behavior.addStickySegment(partner, "211");  
+end   
+
+rule "Sticky - Netshoes"      
+    when behavior : Behavior ( containsStickySegment ( partner, "501", 45 ) )      
+    then behavior.addStickySegment(partner, "501");  
+end   
+
+rule "Sticky - Sephora"      
+    when behavior : Behavior ( containsStickySegment ( partner, "502", 45 ) )      
+    then behavior.addStickySegment(partner, "502");  
+end   
+
+rule "Sticky - Dafiti"      
+    when behavior : Behavior ( containsStickySegment ( partner, "503", 45 ) )      
+    then behavior.addStickySegment(partner, "503");  
+end   
+
+rule "Sticky - DELL"      
+    when behavior : Behavior ( containsStickySegment ( partner, "504", 45 ) )      
+    then behavior.addStickySegment(partner, "504");  
+end   
+
+rule "Sticky - Netflix"      
+    when behavior : Behavior ( containsStickySegment ( partner, "505", 45 ) )      
+    then behavior.addStickySegment(partner, "505");  
+end   
+
+rule "Sticky - Cyrela"      
+    when behavior : Behavior ( containsStickySegment ( partner, "506", 45 ) )      
+    then behavior.addStickySegment(partner, "506");  
+end     
+
+rule "Sticky - Fastshop"      
+    when behavior : Behavior ( containsStickySegment ( partner, "507", 45 ) )      
+    then behavior.addStickySegment(partner, "507");  
+end   

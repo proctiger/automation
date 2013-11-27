@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+	<locale>pt_BR</locale>
+	<local-cache>
+		<compressed>true</compressed>
+		<max-log-file-size-mb>10</max-log-file-size-mb>
+		<location>/export/bt-cruncher-test/reconf</location>
+	</local-cache>
+	<server>
+		<url>http://config-reader.remote-admin.intranet</url>
+	</server>
+</configuration>

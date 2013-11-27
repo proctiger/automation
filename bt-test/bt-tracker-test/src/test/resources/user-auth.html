@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Auth</title>
+	</head>
+	<body>
+		<form id="doLogin" method="post" action="https://acesso.uol.com.br/login.html">
+			<p>
+				<label for="email">E-mail:</label>
+				<input id="email" type="text" name="user" size="15" />
+			</p>
+			<p>	
+				<label for="senha">Senha:</label>
+				<input id="senha" type="password" size="6" name="pass" />
+			</p>
+			<p>
+				<input id="enviar" type="submit" value="Enviar" />
+			</p>
+			<input type="hidden" value="afiliados" name="skin" />
+		</form>
+		<script type="text/javascript">
+			(function (){
+				var qs = (function(a) {
+					if (a == "") return {};
+					var b = {};
+					for (var i = 0; i < a.length; ++i){
+						var p=a[i].split('=');
+						if (p.length != 2) continue;
+						b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+					}
+					return b;
+				})(window.location.search.substr(1).split('&'));
+				
+				if(!qs['action']){
+					return;
+				}
+				
+				if(qs['set-cookie']){
+					var uuid = qs['set-cookie'],
+					expires = new Date();
+					expires.setDate(expires.getDate()+10);
+					
+					console.log('BTTRK=' + uuid + ';Domain=bt.uol.com.br;Path=/;Expires=' + expires.toUTCString());
+					document.cookie = 'BTTRK=' + uuid + ';Domain=bt.uol.com.br;Path=/;Expires=' + expires.toUTCString();
+				} else {
+					document.cookie = 'BTTRK=0;Domain=bt.uol.com.br;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+				}
+				
+				var inpt = document.createElement('input');
+				inpt.setAttribute('value', 'REDIR|' + 'http://tracker.bt.uol.com.br/user-track.html?action=' + qs['action']);
+				inpt.setAttribute('type', 'hidden');
+				inpt.setAttribute('name', 'dest');
+				
+				var frm = document.getElementById('doLogin');
+				frm.appendChild(inpt);
+			}());
+		</script>
+	</body>
+</html>

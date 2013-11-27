@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>AffiliatedQueueDS</jndi-name>
+    <track-connection-by-tx/>
+    <isSameRM-override-value>false</isSameRM-override-value>
+    <connection-url>jdbc:oracle:thin:@uol3.bd.sys.intranet:1521:uol3</connection-url>
+    <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+    <user-name>AFF_QUEUE_JBOSSUBR</user-name>
+    <password>fbb0253f709a13cb06f3</password>
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+    <no-tx-separate-pools/>
+    <metadata>
+      <type-mapping>Oracle9i</type-mapping>
+    </metadata>
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>10</max-pool-size>
+  </local-tx-datasource>
+</datasources>

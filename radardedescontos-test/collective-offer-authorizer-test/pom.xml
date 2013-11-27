@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>collective-offer-test</artifactId>
+		<groupId>uol.collective-offer-test</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>uol.collective-offer-test</groupId>
+	<artifactId>collective-offer-authorizer-test</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>RadarDeDescontos - Testes do Autorizador</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<!-- Dependencias internas -->
+                <dependency>
+                        <groupId>uol.collective-offer-test</groupId>
+                        <artifactId>collective-offer-commons-test</artifactId>
+                </dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<encoding>ISO-8859-1</encoding>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<db.username>radar_adm</db.username>
+				<db.password>radar_adm</db.password>
+				<db.encrypt>false</db.encrypt>
+				<db.sql.show>true</db.sql.show>
+				<db.sql.format>true</db.sql.format>
+				<db.jdbc.url>jdbc:oracle:thin:@localhost:1521:xe</db.jdbc.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>staging</id>
+			<properties>
+				<db.username>dsv</db.username>
+				<db.password>dsv</db.password>
+				<db.encrypt>false</db.encrypt>
+				<db.sql.show>true</db.sql.show>
+				<db.sql.format>true</db.sql.format>
+				<db.jdbc.url>jdbc:oracle:thin:@192.168.114.3:1521:uol3</db.jdbc.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<properties>
+				<db.username>qa</db.username>
+				<db.password>mudar123</db.password>
+				<db.encrypt>false</db.encrypt>
+				<db.sql.show>false</db.sql.show>
+				<db.sql.format>false</db.sql.format>
+				<db.jdbc.url>jdbc:oracle:thin:@10.133.134.22:1521:uol3</db.jdbc.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>automated-tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<db.username></db.username>
+				<db.password></db.password>
+				<db.encrypt>false</db.encrypt>
+				<db.sql.show>false</db.sql.show>
+				<db.sql.format>false</db.sql.format>
+				<db.jdbc.url>jdbc:oracle:thin:@uol3.bd.intranet:1521:uol3</db.jdbc.url>
+			</properties>
+		</profile>
+	</profiles>
+	
+
+</project>

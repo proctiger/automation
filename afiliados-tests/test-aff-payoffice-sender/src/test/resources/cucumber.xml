@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:component-scan base-package="uol.test" />
+	<context:annotation-config />
+	<context:component-scan base-package="cucumber.runtime.java.spring" />
+	<context:annotation-config />
+
+<bean id="jmsEventSender" class="uol.affiliated.commons.jms.client.JMSEventSender">
+		<property name="connectionFactoryName" value="XAConnectionFactory" />
+		<property name="queueName" value="queue/affiliatedPayofficeEventJms" />
+		<property name="properties">
+			<props>
+				<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+				<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces</prop>
+				<prop key="java.naming.provider.url">payoffice-jms1.afiliados.intranet:1100,payoffice-jms2.afiliados.intranet:1100</prop>
+			</props>
+		</property>
+ 	</bean> 
+</beans>

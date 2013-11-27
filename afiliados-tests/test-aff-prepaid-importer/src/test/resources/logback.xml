@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+<configuration>
+    <appender name="A1" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>/export/logs/aff-inscription-consumer-ws/test-aff-inscription-consumer-ws.log</File>
+        <encoder>
+            <pattern>[${project.version}][%d{dd-MM-yyyy HH:mm:ss,Brazil/East} %X{clientIP}] %p %c - %m%n</pattern>
+        </encoder>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/export/logs/aff-inscription-consumer-ws/test-aff-inscription-consumer-ws.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.springframework" level="WARN" />
+    
+    <logger name="org.hibernate" level="WARN" />
+    
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+    
+    <logger name="org.apache.commons.httpclient" level="ERROR" />
+    
+    <root level="INFO">
+        <appender-ref ref="A1" />
+    </root>
+    
+</configuration>

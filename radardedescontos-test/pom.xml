@@ -1,0 +1,189 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>uol.collective-offer-test</groupId>
+	<artifactId>collective-offer-test</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>RadarDeDescontos - Projeto Agregador de Testes</name>
+
+	<organization>
+		<name>UOL</name>
+		<url>http://www.uol.com.br/</url>
+	</organization>
+
+	<properties>
+
+		<!-- Teste -->
+		<version.junit>4.8.1</version.junit>
+
+		<!-- 3rd -->
+		<version.commons.dbcp>1.2.2</version.commons.dbcp>
+		<version.commons.httpclient>3.1</version.commons.httpclient>
+		<version.commons.lang>2.4</version.commons.lang>
+		<version.spring>3.0.3.RELEASE</version.spring>
+		<version.resteasy>2.0.1.GA</version.resteasy>
+		<version.hibernate>3.5.6-Final</version.hibernate>
+
+		<!-- UOL -->
+		<version.uol.udk>2.8.0</version.uol.udk>
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${version.junit}</version>
+			</dependency>
+			<dependency>
+				<groupId>oracle</groupId>
+				<artifactId>ojdbc5</artifactId>
+				<version>11.2.0.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${version.hibernate}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-annotations</artifactId>
+				<version>${version.hibernate}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.0-api</artifactId>
+				<version>1.0.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>${version.commons.httpclient}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jaxrs</artifactId>
+				<version>${version.resteasy}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-spring</artifactId>
+				<version>${version.resteasy}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>${version.commons.dbcp}</version>
+			</dependency>
+			<dependency>
+				<groupId>uol.udk</groupId>
+				<artifactId>udk</artifactId>
+				<version>${version.uol.udk}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.5.8</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${version.commons.lang}</version>
+			</dependency>
+                        <dependency>
+                                <groupId>uol.collective-offer-test</groupId>
+                                <artifactId>collective-offer-commons-test</artifactId>
+                                <version>${project.version}</version>
+                        </dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<encoding>ISO-8859-1</encoding>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.0-beta-7</version>
+					<configuration>
+						<tagBase>https://svnuol.intranet/radar/tags</tagBase>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>uol.corp.plugins</groupId>
+					<artifactId>quebec-maven-plugin</artifactId>
+					<version>1.1.8</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	
+	<profiles>
+	
+		<!-- Constroi e testa todos os modulos -->
+		<profile>
+			<id>release-all</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>collective-offer-services-test</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>services</id>
+			<modules>
+				<module>collective-offer-commons-test</module>
+				<module>collective-offer-services-test</module>
+			</modules>
+		</profile>
+
+	</profiles>
+	
+	
+</project>

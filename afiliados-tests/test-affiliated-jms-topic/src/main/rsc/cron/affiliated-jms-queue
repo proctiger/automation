@@ -1,0 +1,1 @@
+0 1 * * * root /usr/local/bin/logarchiver /opt/UOLI/jboss/affiliated-jms-queue/conf/logarchiver.conf

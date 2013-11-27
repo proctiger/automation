@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.github.com/reconf/reconf-jvm/master/schema/reconf-1.0.xsd">
+    <locale>pt_BR</locale>
+    <local-cache>
+        <location>/export/admanager-consolidator-test/config/remote</location>
+        <max-log-file-size-mb>10</max-log-file-size-mb>
+        <compressed>true</compressed>
+    </local-cache>
+    <server>
+        <url>http://config-reader.remote-admin.intranet</url>
+    </server>
+</configuration>
